@@ -1,17 +1,13 @@
-"use client"
+"use client";
 
-import React from 'react';
+import React from "react";
 import "@/app/styles.css";
-import { Editor } from '@/app/text-editor'
-import { TypingAnimation } from '@/app/components/typing-animation';
+import { Editor } from "@/app/text-editor";
 
 export default function Home() {
-
   return (
     <div className="App">
-      <TypingAnimation />
-
       <Editor />
     </div>
-  )
+  );
 }
