@@ -92,6 +92,28 @@ function DownloadHTMLButton() {
   return <button onClick={handleDownload}>HTML DOWNLOAD</button>;
 }
 
+function ShowTextArea() {
+  const [editor] = useLexicalComposerContext();
+  const [htmlContent, setHtmlContent] = useState("");
+  const handleDisplayHtml = () => {
+    editor.update(() => {
+      const content = $generateHtmlFromNodes(editor);
+      setHtmlContent(content);
+    });
+  };
+
+  return (
+    <div className="flex-col flex gap-2">
+      <button className="w-full" onClick={handleDisplayHtml}>
+        DISPLAY HTML
+      </button>
+      {htmlContent && (
+        <textarea value={htmlContent} className="w-full" rows={20} />
+      )}
+    </div>
+  );
+}
+
 export function Editor(): JSX.Element | null {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -121,7 +143,10 @@ export function Editor(): JSX.Element | null {
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           {/* <TreeViewPlugin /> */}
         </div>
-        <DownloadHTMLButton />
+        <div className="flex flex-col p-3 bg-neutral-200 gap-2">
+          <DownloadHTMLButton />
+          <ShowTextArea />
+        </div>
       </div>
     </LexicalComposer>
   );
